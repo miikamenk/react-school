@@ -1,3 +1,5 @@
+drop table if exists task;
+
 create table task (
     id serial primary key,
     description carchar(255) not null
