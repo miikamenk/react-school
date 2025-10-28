@@ -2,11 +2,14 @@ import { pool } from "../helper/db.js";
 import { Router } from "express";
 import { hash, compare } from "bcrypt";
 import jwt from "jsonwebtoken";
+import { signUp, signIn } from "../controllers/UserController.js";
 
 const { sign } = jwt;
 
 const router = Router();
 
+router.post("/signup", signUp);
+/*
 router.post("/signup", (req, res, next) => {
   const { user } = req.body;
 
@@ -28,7 +31,11 @@ router.post("/signup", (req, res, next) => {
     );
   });
 });
+*/
 
+router.post("/signin", signIn);
+
+/*
 router.post("/signin", (req, res, next) => {
   const { user } = req.body;
   if (!user || !user.email || !user.password) {
@@ -65,5 +72,6 @@ router.post("/signin", (req, res, next) => {
     },
   );
 });
+*/
 
 export default router;
