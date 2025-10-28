@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserContext } from "./UserContext";
+import { UserContext } from "./UserContext.jsx";
 import axios from "axios";
 
 export default function UserProvider({ children }) {
