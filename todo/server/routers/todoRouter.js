@@ -1,4 +1,5 @@
 import { pool } from "../helper/db.js";
+import { auth } from "../helper/auth.js";
 import { Router } from "express";
 
 const router = Router();
@@ -12,7 +13,7 @@ router.get("/", (req, res, next) => {
   });
 });
 
-router.post("/create", (req, res, next) => {
+router.post("/create", auth, (req, res, next) => {
   const { task } = req.body;
   if (!task) {
     const error = new Error("Task is required");
@@ -33,7 +34,7 @@ router.post("/create", (req, res, next) => {
   );
 });
 
-router.delete("/delete/:id", (req, res, next) => {
+router.delete("/delete/:id", auth, (req, res, next) => {
   const { id } = req.params;
   console.log(`Deleting task with id: ${id}`);
   pool.query("delete from task WHERE id = $1", [id], (err, result) => {
