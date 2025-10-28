@@ -1,9 +1,17 @@
 import { pool } from "../helper/db.js";
 import { auth } from "../helper/auth.js";
 import { Router } from "express";
+import {
+  getTasks,
+  postTask,
+  deleteTask,
+} from "../controllers/TaskController.js";
 
 const router = Router();
 
+router.get("/", getTasks);
+
+/*
 router.get("/", (req, res, next) => {
   pool.query("SELECT * FROM task", (err, result) => {
     if (err) {
@@ -12,7 +20,11 @@ router.get("/", (req, res, next) => {
     res.status(200).json(result.rows || []);
   });
 });
+*/
 
+router.post("/create", auth, postTask);
+
+/*
 router.post("/create", auth, (req, res, next) => {
   const { task } = req.body;
   if (!task) {
@@ -33,7 +45,10 @@ router.post("/create", auth, (req, res, next) => {
     },
   );
 });
+*/
+router.delete("/delete/:id", auth, deleteTask);
 
+/*
 router.delete("/delete/:id", auth, (req, res, next) => {
   const { id } = req.params;
   console.log(`Deleting task with id: ${id}`);
@@ -50,5 +65,6 @@ router.delete("/delete/:id", auth, (req, res, next) => {
     return res.status(200).json({ id: id });
   });
 });
+*/
 
 export default router;
