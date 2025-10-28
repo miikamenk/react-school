@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = () => {
+    setTasks([...tasks, task]);
+    setTask("");
+  };
+
+  // feedback to the teachers: problem with this function is there are two or more tasks with the same string, it will delete them all
+  // a good fix for this would be to assign a unique id when creating a task and using that to delete the task
+  const deleteTask = (deleted) => {
+    const withoutRemoved = tasks.filter((item) => item !== deleted);
+    setTasks(withoutRemoved);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div id="container">
+      <h3>Todos</h3>
+      <form>
+        <input
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              addTask();
+            }
+          }}
+          type="text"
+          placeholder="Add new task"
+        />
+      </form>
+      <ul>
+        {tasks.map((item) => (
+          <li>
+            {item}
+            <button className="delete-button" onClick={() => deleteTask(item)}>
+              delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;

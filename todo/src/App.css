@@ -5,6 +5,18 @@
   text-align: center;
 }
 
+#container {
+  padding: 16px;
+}
+
+li {
+  margin-botton: 8px;
+}
+
+.delete-button {
+  margin-left: 16px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
