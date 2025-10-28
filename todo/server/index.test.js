@@ -4,9 +4,9 @@ import { initializeTestDb, insertTestUser, getToken } from "./helper/test.js";
 describe("Testing user management", () => {
   const user = { email: "foo2@test.com", password: "password123" };
 
-  before(() => {
-    initializeTestDb();
-    insertTestUser(user);
+  before(async () => {
+    await initializeTestDb();
+    await insertTestUser(user);
   });
 
   it("should log in", async () => {
@@ -39,7 +39,7 @@ describe("Testing basic database functionality", () => {
   let token = null;
   const testUser = { email: "foo@test.com", password: "password123" };
 
-  before(() => {
+  before(async () => {
     token = getToken(testUser);
   });
   let createdTaskId;
